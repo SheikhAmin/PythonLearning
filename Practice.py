@@ -1,3 +1,4 @@
+import copy
 import re
 
 
@@ -10,21 +11,24 @@ def reverse_string(string):
 
 def palindrome(string):
     value = re.sub("[^a-zA-z0-9]", "", string).lower()
-    if value == reverse_string(value):
+    rev = " "
+    for i in range(len(string) - 1, -1, -1):
+        rev += string[i]
+    if value == rev:
         print("Palindrome")
     else:
         print("Not Palindrome")
 
 
-def sort(a):
+def sort(ar):
     temp = 0
-    for i in range(0, len(a), 1):
-        for j in range(i + 1, len(a), 1):
-            if a[i] > a[j]:
-                temp = a[j]
-                a[j] = a[i]
-                a[i] = temp
-    print(a)
+    for i in range(0, len(ar), 1):
+        for j in range(i + 1, len(ar), 1):
+            if ar[i] > ar[j]:
+                temp = ar[j]
+                ar[j] = ar[i]
+                ar[i] = temp
+    print(ar)
 
 
 def second_highest(ar):
@@ -96,12 +100,12 @@ def linear_search(ar, ele):
             print(f"{ele} found on index {i}")
 
 
-def find_missing_value(a):
+def find_missing_value(ar):
     sum1 = 0
     sum2 = 0
-    for i in range(0, len(a), 1):
-        sum1 += a[i]
-    for i in range(min(a), max(a) + 1, 1):
+    for i in range(0, len(ar), 1):
+        sum1 += ar[i]
+    for i in range(min(ar), max(ar) + 1, 1):
         sum2 += i
     print(f"Missing value:{sum2 - sum1}")
 
@@ -113,6 +117,74 @@ def find_longest_word(s):
         if len(word) > len(long_w):
             long_w = word
     print(f"Longest word:{long_w}")
+
+
+def binary_search(ar, val):
+    ar.sort()
+    low = 0
+    high = len(ar) - 1
+    flag = False
+
+    while low <= high:
+        m = int((low + high) / 2)
+        if ar[m] == val:
+            print("element found")
+            flag = True
+            break
+        if val > ar[m]:
+            low = m + 1
+        if val < ar[m]:
+            high = m - 1
+    if not flag:
+        print("element not found")
+
+
+def prime_number(num):
+    count = 0
+    if num > 1:
+        for i in range(1, num + 1, 1):
+            if num % i == 0:
+                count += 1
+        if count == 2:
+            print("prime number")
+        else:
+            print("not a prime number")
+    else:
+        print("not a prime number")
+
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return
+    mid = len(arr) // 2
+    left = arr[:mid]
+    right = arr[mid:]
+    merge_sort(left)
+    merge_sort(right)
+    merge(arr, left, right)
+
+
+def merge(arr, l, r):
+    i = 0  # for left array
+    j = 0  # for right array
+    k = 0  # merged array
+    while i < len(l) and j < len(r):
+        if l[i] < r[j]:
+            arr[k] = l[i]
+            k += 1
+            i += 1
+        else:
+            arr[k] = r[j]
+            k += 1
+            j += 1
+    while i < len(l):
+        arr[k] = l[i]
+        k += 1
+        i += 1
+    while j < len(r):
+        arr[k] = r[j]
+        k += 1
+        j += 1
 
 
 # print("Enter a String")
@@ -130,5 +202,11 @@ def find_longest_word(s):
 # linearSearch(arr,27)
 # ar = [2,4,5,1]
 # findMissingValue(ar)
-val = "I am Momin"
-find_longest_word(val)
+# val = "I am Moin"
+# find_longest_word(val)
+# binary_search(ar,4)
+# prime_number(2)
+a = [38, 27, 43, 3, 9, 82, 10]
+merge_sort(a)
+print(a)
+
