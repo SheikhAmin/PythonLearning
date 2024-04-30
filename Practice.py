@@ -157,8 +157,8 @@ def merge_sort(arr):
     if len(arr) <= 1:
         return
     mid = len(arr) // 2
-    left = arr[:mid]
-    right = arr[mid:]
+    left = copy.deepcopy(arr[:mid])
+    right = copy.deepcopy(arr[mid:])
     merge_sort(left)
     merge_sort(right)
     merge(arr, left, right)
@@ -187,6 +187,31 @@ def merge(arr, l, r):
         j += 1
 
 
+def anagram(val, val2):
+    word = ''.join(sorted(val.lower()))
+    word1 = ''.join(sorted(val2.lower()))
+    if word == word1:
+        print("Anagram")
+    else:
+        print("Not Anagram")
+
+
+def is_valid_parenthesis(s):
+    stack = []
+    for c in s:
+        if c == '(' or c == '{' or c == '[':
+            stack.append(c)
+        elif c.isdigit() or c in {'+', '-', '*', '/'}:
+            continue
+        else:
+            if not stack:
+                return False
+            top = stack.pop()
+            if (c == ')' and top != '(') or (c == '}' and top != '{') or (c == ']' and top != '['):
+                return False
+    return not stack
+
+
 # print("Enter a String")
 # inputStr = input()
 # print(reverseString(inputStr))
@@ -209,56 +234,5 @@ def merge(arr, l, r):
 # a = [38, 27, 43, 3, 9, 82, 10]
 # merge_sort(a)
 # print(a)
-
-                                                              # Apna College Python Course
-
-# Taking Input from user
-name = input("What is your name? => ")
-print("Hello " + name)
-old_age = input("Enter you old age: ")
-new_age = int(old_age) + 2
-print(new_age)
-print(float(new_age))
-print(name.lower())
-print(name.upper())
-# String Manipulation
-print(name.find('n'))  # .find() returns index number
-print(name.replace("n", "m"))  # .replace() changes a given char to another char
-# Keywords
-print("min" in name)
-# Arithmetic Operator
-print(5 // 2)  # point value bad diye dey
-print(5 ** 2)  # means 5^2
-print(5 % 2)  # remainder
-print((2 + 3) * 8)
-# List. Denotes by {}
-marks = [95, 96, 97, "Bangla"]
-print(marks)
-print(marks[0:2])
-for score in marks:
-    print(score)
-marks.append(99)
-print(marks)
-marks.insert(1, 85)
-print(marks)
-print(99 in marks)
-print(len(marks))
-# continue
-for score in marks:
-    if score == "Bangla":
-        continue
-    print(score)
-# Tuple. It is like List but it is immutable. Denotes by (). Also, can be denoted by another approach. Follow 1
-marks = (95, 98, 97, 100, 97, 98)
-print(marks.count(97))
-print(marks.index(98))
-mark = "amin", "momin"
-print(mark)
-# Set is denote by {}. Stores unique value. It doesn't have index. So unordered
-marks = {95, 98, 97, 100, 97, 98}
-print(marks)
-# Dictionary. Stores value as Key and value. Almost like JS object. Denotes by {}
-score = {"english": 70, "math": 85, "social_science": 88}
-print(score["math"])
-score["physics"] = 80  # adding value or can change value to the dictionary
-print(score)
+# anagram("Listen", "silent")
+print(is_valid_parenthesis('1+2(3)'))
